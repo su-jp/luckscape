@@ -1,0 +1,5 @@
+/vendor/
+node_modules/
+writable/
+.env
+docker-compose.override.yml
