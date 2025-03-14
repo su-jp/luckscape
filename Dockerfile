@@ -8,4 +8,15 @@ RUN apt-get update --fix-missing && apt-get install -y \
     && docker-php-ext-enable intl \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Set working directory
 WORKDIR /var/www/html
+
+# Copy project files into container
+COPY . /var/www/html
+
+# Set proper permissions for writable directory
+RUN chown -R www-data:www-data /var/www/html/writable
+RUN chmod -R 755 /var/www/html/writable
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
