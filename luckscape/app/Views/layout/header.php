@@ -8,3 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <header class="text-center py-3 bg-success text-white">
+        <h3 class="mb-0">🍀 Luckscape 🍀</h3>
+    </header>
+    <div class="container text-center mt-3">
