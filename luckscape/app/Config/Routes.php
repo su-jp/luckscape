@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/fortune/generate', 'FortuneGenerator::generate');
+$routes->get('/fortune', 'FortuneController::showFortune');
 $routes->get('/contact', 'Pages::contact');
 $routes->get('/privacy-policy', 'Pages::privacyPolicy');
 $routes->get('/terms', 'Pages::terms');
