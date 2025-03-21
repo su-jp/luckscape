@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\CLI\CLI;
 use CodeIgniter\RESTful\ResourceController;
 
 class FortuneGenerator extends ResourceController
@@ -20,29 +21,41 @@ class FortuneGenerator extends ResourceController
     public function generate()
     {
         try {
-            $targetDate = date('Y-m-d', strtotime('+1 day')); // TODO: 일주일 후 날짜로 추후 수정
+            date_default_timezone_set('Asia/Seoul');
+            $targetDate = date('Y-m-d', strtotime('+7 day'));
+            $filePath = WRITEPATH . "data/{$targetDate}.json";
+
+            // 이미 데이터 생성된 경우 중복 호출 방지
+            if (file_exists($filePath)) {
+                $message = '이미 생성된 운세 데이터가 있습니다.';
+                log_message('warning', "filePath: $filePath :: $message");
+                return ['success' => false, 'message' => "filePath: $filePath :: $message", 'foreground' => 'yellow'];
+            }
 
             $prompt = "사주 명리학의 '일주'를 기반으로 {$targetDate}의 운세를 생성해주세요. 
-                       60개의 일주(갑자, 을축, 병인, 정묘 ...)에 대해 각각 간단한 운세를 2~3문장으로 작성해주세요.
-                       또한 {$targetDate}의 운세 상승을 위한 팁을 각 일주마다 1문장 작성해주세요.
+                       먼저 60개의 일주를 배열로 생성하세요.
+                       일주 목록 = ['갑자','을축','병인','정묘','무진','기사','경오','신미','임신','계유','갑술','을해','병자','정축','무인','기묘','경진','신사','임오','계미','갑신','을유','병술','정해','무자','기축','경인','신묘','임진','계사','갑오','을미','병신','정유','무술','기해','경자','신축','임인','계묘','갑진','을사','병오','정미','무신','기유','경술','신해','임자','계축','갑인','을묘','병진','정사','무오','기미','경신','신유','임술','계해']
+                       그리고 각 일주에 대해 간단한 운세를 2~3문장, {$targetDate}의 운세 상승을 위한 팁을 1문장 작성해주세요.
                        ";
 
             $response = $this->callChatGPT($prompt, $targetDate);
 
-            log_message('info', 'callChatGPT $response');
-            log_message('info', $response ?? 'Null');
-
-            if ($response) {
-                file_put_contents(WRITEPATH . "data/{$targetDate}.json", $response);
-                return $this->respond(['message' => '운세 데이터가 생성되었습니다.']);
-            } else {
+            if (empty($response)) {
                 log_message('error', '$response is null');
+                return ['success' => false, 'message' => "response is null", 'foreground' => 'red'];
             }
 
-            return $this->fail('운세 데이터를 생성하는데 실패했습니다.');
+            if (file_put_contents($filePath, $response) === false) {
+                log_message('error', "$filePath 저장 실패");
+                return ['success' => false, 'message' => "$filePath 저장 실패", 'foreground' => 'red'];
+            }
+
+            log_message('info', "$filePath 생성 성공");
+            return ['success' => true, 'message' => "$filePath 생성 성공", 'foreground' => 'green'];
+            
         } catch (\Exception $e) {
             log_message('error', $e);
-            return $this->fail('운세 데이터를 생성하는데 실패했습니다.');
+            return ['success' => false, 'message' => "Error 발생 >> $e", 'foreground' => 'red'];
         }
     }
 
@@ -89,7 +102,7 @@ class FortuneGenerator extends ResourceController
                 "messages" => [
                     [
                         "role" => "system",
-                        "content" => "요청에 따라 사주명리학 기반으로 운세를 제공하세요. 운세를 작성할 때에는 천간과 지지의 특성을 모두 고려하며, 제공된 날짜와 일주의 천간/지지와 합을 고려하여 충합형을 같이 반영하세요.
+                        "content" => "당신은 한국의 사주 명리학 전문가입니다. 사용자가 제공한 날짜를 기반으로 요청에 따라 사주명리학 기반으로 운세를 제공하세요. 운세를 작성할 때에는 천간과 지지의 특성을 모두 고려하며, 제공된 날짜와 일주의 천간/지지와 합을 고려하여 충합형을 같이 반영하세요.
                                        내용에서 부정적인 표현은 피하고, 긍정적이거나 중립적으로 표현하세요. 운세 내용에 동일한 문장이 단 한 문장도 없어야 합니다. 60개의 일주 모두에 대해 응답하세요. 빠뜨리는 일주가 없어야 합니다."
                     ],
                     ["role" => "user", "content" => $prompt]
@@ -122,6 +135,8 @@ class FortuneGenerator extends ResourceController
         } catch (\Exception $e) {
             log_message('error', "ChatGPT API 호출 에러 발생");
             log_message('error', $e);
+            CLI::write('ChatGPT API 호출 에러 발생', 'red');
+            CLI::write($e, 'red');
             return null;
         }
     }
