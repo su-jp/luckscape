@@ -12,3 +12,6 @@
         <h3 class="mb-0">🍀 Luckscape 🍀</h3>
     </header>
     <div class="container text-center mt-3">
+        <?php if($error = session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger fade-message"><?= esc($error) ?></div>
+        <?php endif; ?>

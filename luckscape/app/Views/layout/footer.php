@@ -8,5 +8,20 @@
         </p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const alertBox = document.querySelector('.fade-message');
+            if (alertBox) {
+                setTimeout(() => {
+                    alertBox.style.transition = 'opacity 1s';
+                    alertBox.style.opacity = '0';
+
+                    setTimeout(() => {
+                        alertBox.remove();
+                    }, 1000);
+                }, 3000);
+            }
+        })
+    </script>
 </body>
 </html>
