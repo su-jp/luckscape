@@ -11,12 +11,17 @@ RUN apt-get update --fix-missing && apt-get install -y \
 # Set working directory
 WORKDIR /var/www/html
 
+# Apache DocumentRoot 변경
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/luckscape/public
+
+RUN sed -i 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
 # Copy project files into container
 COPY . /var/www/html
 
 # Set proper permissions for writable directory
-RUN chown -R www-data:www-data /var/www/html/writable
-RUN chmod -R 755 /var/www/html/writable
-
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+RUN chown -R www-data:www-data /var/www/html/luckscape/writable
+RUN chmod -R 755 /var/www/html/luckscape/writable
