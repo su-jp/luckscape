@@ -69,11 +69,11 @@
 >
     <div class="flex items-center justify-between px-4 py-3">
         <div class="w-8 h-8 flex items-center justify-center">
-            <i class="ri-menu-line ri-lg text-white"></i>
+<!--            <i class="ri-menu-line ri-lg text-white"></i>-->
         </div>
         <a class="font-['Pacifico'] text-2xl text-white" href="/">LuckScape</a>
         <div class="w-8 h-8 flex items-center justify-center">
-            <i class="ri-user-line ri-lg text-white"></i>
+<!--            <i class="ri-user-line ri-lg text-white"></i>-->
         </div>
     </div>
 </header>
