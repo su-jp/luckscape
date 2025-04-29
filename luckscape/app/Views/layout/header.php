@@ -45,9 +45,11 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-image: url('/images/background.jpg');
-            background-size: cover;
-            background-position: center;
+            background-size: contain;
+            background-position: top center;
             background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #350863;
         }
         .date-picker::-webkit-calendar-picker-indicator {
             filter: invert(1);
@@ -60,9 +62,14 @@
         input[type=date] {
             -webkit-appearance: none;
         }
+        .max-width {
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen">
+<body class="text-gray-900 min-h-screen">
 <!-- Header -->
 <header
         class="fixed w-full top-0 z-10 bg-primary/90 backdrop-blur-md shadow-md"
@@ -78,4 +85,4 @@
     </div>
 </header>
 <!-- Main Content -->
-<main class="pt-16 pb-20 px-4">
+<main class="pt-16 pb-20 px-4 max-width">

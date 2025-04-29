@@ -3,7 +3,7 @@
 <footer
         class="fixed w-full bottom-0 bg-gray-800/90 backdrop-blur-md text-white py-4 px-4"
 >
-    <div class="flex justify-between items-center text-xs px-4">
+    <div class="flex justify-between items-center text-xs px-4 max-width">
         <a href="/terms" data-readdy="true" class="hover:text-gray-300">이용약관</a>
         <span class="mx-1 text-gray-500">|</span>
         <a href="/privacy-policy" class="hover:text-gray-300">개인정보처리방침</a>
