@@ -95,6 +95,15 @@
                 iljuSelect.appendChild(option);
             });
 
+            // Select 검색 추가
+            new TomSelect('#ilju', {
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+
             // 오늘 날짜를 기본값으로 설정
             const today = new Date();
             const year = today.getFullYear();

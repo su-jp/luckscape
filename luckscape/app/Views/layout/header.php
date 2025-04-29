@@ -40,6 +40,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
     />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
     <style>
         :where([class^="ri-"])::before { content: "\f3c2"; }
         body {
