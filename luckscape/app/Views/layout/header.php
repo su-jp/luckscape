@@ -54,6 +54,14 @@
         }
         .date-picker::-webkit-calendar-picker-indicator {
             filter: invert(1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            color: transparent;
+            cursor: pointer;
         }
         input[type=date]::-webkit-inner-spin-button,
         input[type=date]::-webkit-outer-spin-button {
