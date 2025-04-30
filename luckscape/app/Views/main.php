@@ -82,7 +82,7 @@
             </p>
         </div>
     </section>
-    <script src="/js/data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const iljuSelect = document.getElementById("ilju");

@@ -14,6 +14,28 @@
         © 2025 LuckScape. All rights reserved.
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="/js/data.js"></script>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: { primary: "#5D3FD3", secondary: "#F2D16B" },
+                borderRadius: {
+                    none: "0px",
+                    sm: "4px",
+                    DEFAULT: "8px",
+                    md: "12px",
+                    lg: "16px",
+                    xl: "20px",
+                    "2xl": "24px",
+                    "3xl": "32px",
+                    full: "9999px",
+                    button: "8px",
+                },
+            },
+        },
+    };
+</script>
 </body>
 </html>

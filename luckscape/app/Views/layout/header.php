@@ -4,28 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuckScape - 오늘의 운세</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { primary: "#5D3FD3", secondary: "#F2D16B" },
-                    borderRadius: {
-                        none: "0px",
-                        sm: "4px",
-                        DEFAULT: "8px",
-                        md: "12px",
-                        lg: "16px",
-                        xl: "20px",
-                        "2xl": "24px",
-                        "3xl": "32px",
-                        full: "9999px",
-                        button: "8px",
-                    },
-                },
-            },
-        };
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
