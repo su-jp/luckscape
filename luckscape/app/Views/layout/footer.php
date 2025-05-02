@@ -36,6 +36,9 @@
             },
         },
     };
+    <?php if($error = session()->getFlashdata('error')): ?>
+    alert('<?= esc($error) ?>');
+    <?php endif; ?>
 </script>
 </body>
 </html>
