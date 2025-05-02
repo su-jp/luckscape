@@ -2,15 +2,17 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\RESTful\ResourceController;
+use Exception;
 
 class FortuneController extends ResourceController
 {
     /**
-     * 운세 데이터 표출
-     * @return string
+     * @return RedirectResponse|string
+     * @throws Exception
      */
-    public function showFortune()
+    public function showFortune(): string|RedirectResponse
     {
         log_message('info', 'showFortune 시작');
         $request = \Config\Services::request();
@@ -43,11 +45,11 @@ class FortuneController extends ResourceController
     }
 
     /**
-     * @param $date 날짜 (YYYY-MM-DD)
-     * @param $ilju 일주
+     * @param $date string 날짜 (YYYY-MM-DD)
+     * @param $ilju string 일주
      * @return array
      */
-    public function getFortune($date, $ilju)
+    public function getFortune(string $date, string $ilju): array
     {
         try {
             log_message('info', "getFortune >> $date, $ilju");
@@ -81,7 +83,7 @@ class FortuneController extends ResourceController
             }
 
             return ['success' => true, 'data' => $match[0]];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             log_message('error', $e);
             return ['success' => false, 'message' => '운세를 조회하던 중 오류가 발생했습니다.'];
         }

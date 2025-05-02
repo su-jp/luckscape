@@ -7,7 +7,7 @@ use CodeIgniter\RESTful\ResourceController;
 
 class FortuneGenerator extends ResourceController
 {
-    private $apiKey;
+    private String $apiKey;
 
     public function __construct()
     {
@@ -16,9 +16,9 @@ class FortuneGenerator extends ResourceController
 
     /**
      * ChatGPT를 통해 생성한 운세 데이터를 JSON 형태로 저장
-     * @return \CodeIgniter\HTTP\ResponseInterface
+     * @return array
      */
-    public function generate()
+    public function generate(): array
     {
         try {
             date_default_timezone_set('Asia/Seoul');
@@ -64,9 +64,10 @@ class FortuneGenerator extends ResourceController
     /**
      * ChatCPT 호출
      * @param $prompt
+     * @param $targetDate
      * @return mixed|null
      */
-    private function callChatGPT($prompt, $targetDate)
+    private function callChatGPT($prompt, $targetDate): mixed
     {
         try {
 
