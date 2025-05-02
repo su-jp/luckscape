@@ -33,15 +33,18 @@ class FortuneController extends ResourceController
         $dateTime = new \DateTime($date);
         $content = $response['data']['운세'] ?? null;
         $content = $content = preg_replace("/([.?!])\s*/", "$1<br>", $content);
-        
+        $viewData = [
+            'date'    => $dateTime->format('Y년 n월 j일'),
+            'ilju'    => $ilju,
+            'fortune' => $content,
+            'tip'     => $response['data']['팁'] ?? null,
+        ];
+
         log_message('info', 'showFortune 종료');
 
-        return view('fortune', [
-            'date' => $dateTime->format('Y년 n월 j일'),
-            'ilju' => $ilju,
-            'fortune' => $content,
-            'tip' => $response['data']['팁'] ?? null
-        ]);
+        return view('fortune', $viewData + [
+                'share' => view('fortune-share', $viewData),
+            ]);
     }
 
     /**

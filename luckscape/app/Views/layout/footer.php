@@ -1,4 +1,5 @@
 </main>
+<div id="captureContainer" style="position: absolute; left: -9999px; top: 0;"></div>
 <!-- Footer -->
 <footer
         class="fixed w-full bottom-0 bg-gray-800/90 backdrop-blur-md text-white py-4 px-4"
